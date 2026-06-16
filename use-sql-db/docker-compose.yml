@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: use-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: use_metadata_db
+      POSTGRES_USER: use_app_user
+      POSTGRES_PASSWORD: local_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - use_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  use_postgres_data:

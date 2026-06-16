@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vs/
+*.user
+*.suo
+*.DotSettings.user
+
+# .NET
+bin/
+obj/
+
+# React / Node
+node_modules/
+dist/
+build/
+
+# Environment / secrets
+.env
+.env.*
+local.settings.json
+appsettings.Development.json
+
+# Python virtual environments
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Python model/cache files
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+
+# Ignore whole reranker service
+Use.Reranker.Service/

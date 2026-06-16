@@ -1,0 +1,32 @@
+@Use.LlmService.Api_HostAddress = http://localhost:5133
+
+### Embeddings
+POST {{Use.LlmService.Api_HostAddress}}/api/embeddings
+Content-Type: application/json
+
+{
+  "input": "hello world",
+  "sourceType": "UserQuery"
+}
+
+### Chat
+POST {{Use.LlmService.Api_HostAddress}}/api/chat
+Content-Type: application/json
+
+{
+  "prompt": "Say hi in one word."
+}
+
+### Rerank (requires Use.Reranker.Service running on :8000)
+POST {{Use.LlmService.Api_HostAddress}}/api/rerank
+Content-Type: application/json
+
+{
+  "query": "Kedy je naplánovaný update systému Humanet pre mesiac August?",
+  "documents": [
+    { "chunkId": "1", "text": "Mesiac: August; Dátum pre update: 22. 8. 2025." },
+    { "chunkId": "2", "text": "Táto stránka popisuje používateľské oprávnenia." }
+  ]
+}
+
+###

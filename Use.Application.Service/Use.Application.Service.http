@@ -1,0 +1,63 @@
+@Use.Application.Service_HostAddress = http://localhost:5155
+
+# Dev identity headers (no real auth yet). In Development these can be omitted
+# and a deterministic local dev user is used instead.
+@X-User-Email = local.dev@use.local
+
+### Ask a question (new chat — chatSessionId omitted/null creates a session)
+POST {{Use.Application.Service_HostAddress}}/api/chat
+Content-Type: application/json
+X-User-Email: {{X-User-Email}}
+
+{
+  "question": "Kedy je naplánovaný update systému Humanet pre mesiac August?",
+  "chatSessionId": null
+}
+
+### Continue an existing chat (paste a chatSessionId from a previous response)
+POST {{Use.Application.Service_HostAddress}}/api/chat
+Content-Type: application/json
+X-User-Email: {{X-User-Email}}
+
+{
+  "question": "A čo september?",
+  "chatSessionId": "00000000-0000-0000-0000-000000000000"
+}
+
+### List the current user's chat sessions
+GET {{Use.Application.Service_HostAddress}}/api/chat/sessions
+X-User-Email: {{X-User-Email}}
+
+### Create an empty chat session
+POST {{Use.Application.Service_HostAddress}}/api/chat/sessions
+Content-Type: application/json
+X-User-Email: {{X-User-Email}}
+
+{
+  "title": "My new conversation"
+}
+
+### Get messages for a session (must be owned by the current user)
+GET {{Use.Application.Service_HostAddress}}/api/chat/sessions/00000000-0000-0000-0000-000000000000/messages
+X-User-Email: {{X-User-Email}}
+
+### Rate a RAG answer by ragQueryLogId (preferred — returned on the chat response)
+POST {{Use.Application.Service_HostAddress}}/api/chat/rag-query-logs/00000000-0000-0000-0000-000000000000/rating
+Content-Type: application/json
+X-User-Email: {{X-User-Email}}
+
+{
+  "rating": -1,
+  "feedback": "The answer used the wrong source page."
+}
+
+### Rate a RAG answer by chat message id (user or assistant message)
+POST {{Use.Application.Service_HostAddress}}/api/chat/messages/00000000-0000-0000-0000-000000000000/rating
+Content-Type: application/json
+X-User-Email: {{X-User-Email}}
+
+{
+  "rating": 1
+}
+
+###
